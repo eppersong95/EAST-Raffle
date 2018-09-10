@@ -1,5 +1,9 @@
+//Garrett Epperson
+//EAST Conference 2018 Raffle Program
+
 package raffleTest;
 
+//Student contains the name and school/organization associated with unique id
 public class Student
 {
   private String name;

@@ -1,23 +1,29 @@
+//Garrett Epperson
+//EAST Conference 2018 Raffle Program
+
 package raffleTest;
 
 import java.awt.Dimension;
 
 import javax.swing.*;
 
+//MainMenu acts as an intermediary between DrawTicketMenu and EnterTicketMenu
 public class MainMenu extends AbstractMenu
 {
+  //GUI elements
   private JButton toEnterMenu;
   private JButton toDrawMenu;
   private JLabel logo;
   
   public MainMenu(Master master, ButtonListener listener)
   {
+	//set master JFrame and ButtonListener
     super(master, listener);
     
+    //initialize GUI elements
     toEnterMenu = new JButton("Enter Tickets");
     toDrawMenu = new JButton("Draw Tickets");
     
- 
     addButton(toEnterMenu, master.LEFT, 150);
     addButton(toDrawMenu, master.RIGHT, 150);
     
@@ -25,9 +31,11 @@ public class MainMenu extends AbstractMenu
     setBackground();
   }
   
+  //because this screen never changes (no input), there is no need to reset GUI elements
   public void initialize()
   {}
   
+  //adds the EASTCon18 logo to center of the screen
   public void setLogo()
   {
     String path = System.getProperty("user.home") + "/Desktop/EAST Raffle/resources/images/logo.png";

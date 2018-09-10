@@ -1,3 +1,6 @@
+//Garrett Epperson
+//EAST Conference 2018 Raffle Program
+
 package raffleTest;
 
 import java.io.File;
@@ -5,10 +8,10 @@ import java.io.IOException;
 
 import javax.sound.sampled.*;
 
-
+//SoundPlayer is used to play sounds based on the results of an enter or draw ticket action
 public class SoundPlayer
 {
-
+//method that plays the sound specified by the filePath
   public static void playSound(String filePath) 
   {
     try
@@ -18,15 +21,7 @@ public class SoundPlayer
       clip.open(sound);
       clip.start();
     }
-    catch (UnsupportedAudioFileException e)
-    {
-      e.printStackTrace();
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-    }
-    catch (LineUnavailableException e)
+    catch (UnsupportedAudioFileException|IOException|LineUnavailableException e)
     {
       e.printStackTrace();
     }

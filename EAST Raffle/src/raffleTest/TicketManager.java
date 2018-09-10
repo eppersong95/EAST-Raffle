@@ -1,3 +1,6 @@
+//Garrett Epperson
+//EAST Conference 2018 Raffle Program
+
 package raffleTest;
 
 import java.io.BufferedReader;
@@ -11,12 +14,14 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Random;
 
+//TicketManager is used for accepting valid tickets and selecting winners at random
+//It also handles the file IO for the tickets.csv and winners.csv files
 public class TicketManager
 {
-  private ConferenceRoster roster;
-  private String ticketsFile;
-  private String winnersFile;
-  private ArrayList<String> tickets;
+  private ConferenceRoster roster; //full roster of participants
+  private String ticketsFile; //file path of tickets.csv
+  private String winnersFile; //file path of winners.csv
+  private ArrayList<String> tickets; //
   
   public TicketManager()
   {
@@ -26,10 +31,11 @@ public class TicketManager
     tickets = new ArrayList<String>();
   }
   
+  //verifies that a barcode scan matches a unique id number 
   public Student verifyTicket(String idNum)
   {
-    Student temp = roster.getStudent(idNum);
-    if(temp != null)
+    Student temp = roster.getStudent(idNum); //checks the full roster
+    if(temp != null) //if temp isn't null, there was a match. add to tickets.csv
     {
       acceptTicket(idNum);
     }
@@ -37,6 +43,7 @@ public class TicketManager
     return temp;
   }
   
+  //writes valid barcode scan to tickets.csv
   private void acceptTicket(String toEnter)
   {
     FileWriter fw;
@@ -52,26 +59,34 @@ public class TicketManager
     }
   }
   
+  //draws a random ticket from tickets.csv
+  //writes winner to winners.csv
+  //returns associated Student object for display 
   public Student drawTicket()
   {
-    readTickets();
-    if(tickets.size()==0) { return null; }
+    readTickets(); //populates tickets with all of tickets.csv
+    if(tickets.size()==0) { return null; } //if no tickets to draw from
     
+    //generates random number
     Random rand = new Random();
     int winningIndex = rand.nextInt(tickets.size());
+    
+    //gets winning ID and corresponding Student object
+    //removes this ticket from remaining ticketsS
     String winnerID = tickets.remove(winningIndex);
     Student winner = roster.getStudent(winnerID);
     
+    //writes winner, and repopulates tickets.csv with remaining tickets
     writeWinner(winnerID, winner);
     writeRemainingTickets();
     
+    //return winning Student object
     return winner;
   }
   
+  //reads all tickets from tickets.csv 
   private void readTickets()
-  {
-    Student temp;
-    
+  {  
     try
     {
       File file = new File(ticketsFile);
@@ -94,6 +109,7 @@ public class TicketManager
     }
   }
   
+  //writes winner information to winners.csv
   private void writeWinner(String id, Student winner)
   {
     FileWriter fw;
@@ -111,6 +127,7 @@ public class TicketManager
     }
   }
   
+  //writes remaining tickets to tickets.csv
   private void writeRemainingTickets()
   {
     FileWriter fw;

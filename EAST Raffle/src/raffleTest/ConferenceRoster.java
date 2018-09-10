@@ -1,3 +1,6 @@
+//Garrett Epperson
+//EAST Conference 2018 Raffle Program
+
 package raffleTest;
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,18 +10,18 @@ import java.io.IOError;
 import java.io.IOException;
 import java.util.HashMap;
 
-//class that reads in full conference roster and stores in hash map
+//class that reads in full conference roster and stores as hash map
 public class ConferenceRoster
 {
   private HashMap<String, Student> roster;
   
   public ConferenceRoster()
   {
-    roster = new HashMap<String, Student>();
+    roster = new HashMap<String, Student>(); //initialize roster
     ReadRoster();
   }
   
-  //reads in the conference roster and stores in hashmap
+  //populates roster
   public void ReadRoster()
   {
     try
@@ -29,13 +32,14 @@ public class ConferenceRoster
       String line;
       String[] info;
       
+      //while not end of file, add line to roster
       while((line=bufferedReader.readLine())!=null)
       {
         info = line.split(",");
         roster.put(info[0], new Student(info[1], info[2]));
       }
       
-      //close filereaderso
+      //close filereaders
       bufferedReader.close();
       fileReader.close();
     }
@@ -46,6 +50,7 @@ public class ConferenceRoster
     }
   }
 
+  //returns student object associated with unique id
   public Student getStudent(String id)
   {
     return roster.get(id);
